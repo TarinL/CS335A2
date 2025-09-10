@@ -4,16 +4,14 @@ namespace A2Template.Data
 {
     public interface IA2Repo
     {
-        IEnumerable<User> GetUsers();
-        IEnumerable<Staff> GetStaff();
-        IEnumerable<Event> GetEvents();
-        User GetUserById(string id);
+        IEnumerable<User> GetAllUsers();
+        IEnumerable<Staff> GetAllStaff();
+        IEnumerable<Event> GetAllEvents();
+        User GetUserById(string UserName);
         Staff GetStaffById(string id);
-        Event GetEventById(string id);
+        Event GetEventById(int id);
         User AddUser (User user);
-        
-        
-        
+        Event AddEvent(Event e);
         void SaveChanges();
     } 
 }
