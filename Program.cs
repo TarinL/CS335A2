@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using A2Template.Data;
+using A2Template.Handler;
 
 public class Program
 {
@@ -12,9 +15,18 @@ public class Program
         {
             c.SupportNonNullableReferenceTypes();
         });
-
-        builder.Services.AddDbContext<A2DbContext>(options => options.UseSqlite(builder.Configuration["P1DBConnection"]));
+        builder.Services
+            .AddAuthentication()
+            .AddScheme<AuthenticationSchemeOptions, A2AuthHandler>("Authentication", null);
+            
+        builder.Services.AddDbContext<A2DbContext>(
+            options => options.UseSqlite(builder.Configuration["P1DBConnection"]));
         builder.Services.AddScoped<IA2Repo, A2Repo>();
+        builder.Services.AddAuthorization(Options =>
+        {
+            Options.AddPolicy("StaffOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Staff"));
+            Options.AddPolicy("UserOnly", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
+        });
         
         var app = builder.Build();
 
@@ -25,7 +37,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-        app.UseAuthorization();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 
