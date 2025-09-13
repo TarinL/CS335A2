@@ -12,6 +12,8 @@ namespace A2Template.Data
         Event GetEventById(int id);
         User AddUser (User user);
         Event AddEvent(Event e);
+        bool IsValidUser(string userName, string password);
+        bool isValidStaff(string name, string password);
         void SaveChanges();
     } 
 }

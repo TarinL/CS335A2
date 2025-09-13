@@ -57,6 +57,24 @@ namespace A2Template.Data
             return ev;
         }
 
+        public bool IsValidUser(string userName, string password)
+        {
+            User u = _db.Users.FirstOrDefault (u => u.UserName == userName && u.Password == password);
+            if (u == null)
+                return false;
+            else
+                return true;
+        }
+
+        public bool isValidStaff(string name, string password)
+        {
+            Staff s = _db.Staff.FirstOrDefault(s => s.Name == name && s.Password == password);
+            if (s == null)
+                return false;
+            else
+                return true;
+        }
+
         public void SaveChanges()
         {
             _db.SaveChanges();
