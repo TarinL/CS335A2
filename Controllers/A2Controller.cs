@@ -24,7 +24,7 @@ namespace A2Template.Controllers
         
         // POST /webapi/Register
         [HttpPost("Register")]
-        public ActionResult<User> registerUser(User user)
+        public ActionResult<string> registerUser(User user)
         {
             User u = _repository.GetUserById(user.UserName);
             if (u == null)
@@ -32,11 +32,28 @@ namespace A2Template.Controllers
                 _repository.AddUser(user);
                 return Ok("User successfully registered.");
             }
-            else
-            {
-                return Ok($"UserName {user.UserName} is not available.");
-            }
+            
+            return Ok($"UserName {user.UserName} is not available.");
         }
+        
+        // GET /webapi/Donation
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "UserOnly")]
+        [HttpGet("Donation/{donation}")]
+        public ActionResult<string> makeDonation(int donation)
+        {
+            if (donation <= 0)
+            {
+                return BadRequest("Amount must be a positive number.");
+            }
+            DonationCert donationCert = new DonationCert{Amount = donation, UserName = User.Identity.Name};
+            return Ok(donationCert);
+        }
+        
+        // POST /webapi/AddEvent
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "StaffOnly")]
+        public ActionResult<string> AddEvent(EventInput eventInput) {}
         
     }
 }
