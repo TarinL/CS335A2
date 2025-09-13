@@ -57,6 +57,16 @@ namespace A2Template.Data
             return ev;
         }
 
+        public bool IsValidLogin(string userName, string password)
+        {
+            User u = _db.Users.FirstOrDefault (u => u.UserName == userName && u.Password == password);
+            if (u == null)
+                return false;
+            else
+                return true;
+            
+        }
+
         public void SaveChanges()
         {
             _db.SaveChanges();

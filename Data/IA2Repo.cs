@@ -12,6 +12,7 @@ namespace A2Template.Data
         Event GetEventById(int id);
         User AddUser (User user);
         Event AddEvent(Event e);
+        bool IsValidLogin(string userName, string password);
         void SaveChanges();
     } 
 }
