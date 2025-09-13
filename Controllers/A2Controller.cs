@@ -51,9 +51,15 @@ namespace A2Template.Controllers
         }
         
         // POST /webapi/AddEvent
+        // GET /webapi/EventCount
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "StaffOnly")]
-        public ActionResult<string> AddEvent(EventInput eventInput) {}
+        [HttpGet("EventCount")]
+        public ActionResult<int> countEvents()
+        {
+            int numOfEvents = _repository.GetAllEvents().Count();
+            return Ok(numOfEvents);
+        }
         
     }
 }
