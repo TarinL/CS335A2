@@ -1,4 +1,4 @@
-using A2Template.Models;
+﻿using A2Template.Models;
 
 namespace A2Template.Data
 {

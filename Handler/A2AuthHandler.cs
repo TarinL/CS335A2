@@ -77,6 +77,12 @@ namespace A2Template.Handler
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "User"),
                     };
+                    
+                    ClaimsIdentity identity = new ClaimsIdentity(claims, "Basic");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+                    
+                    AuthenticationTicket ticket = new AuthenticationTicket(principal, Scheme.Name);
+                    return AuthenticateResult.Success(ticket);
                 }
                 return AuthenticateResult.Fail("Invalid username or password.");
             }

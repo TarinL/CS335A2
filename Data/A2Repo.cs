@@ -1,4 +1,4 @@
-using A2Template.Models;
+﻿using A2Template.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace A2Template.Data
