@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -93,6 +93,21 @@ namespace A2Template.Controllers
         {
             int numOfEvents = _repository.GetAllEvents().Count();
             return Ok(numOfEvents);
+        }
+        
+        // GET /webapi/Event/{id}
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "StaffOnly")]
+        [HttpGet("Event/{id}")]
+        public ActionResult GetEvent(int id)
+        {
+            Event e = _repository.GetEventById(id);
+            if (e == null)
+            {
+                return BadRequest($"Event {id} does not exist.");
+            }
+            Response.Headers.Add("Content-Type", "text/calendar; charset=utf-8");
+            return Ok(e);
         }
     }
 }
