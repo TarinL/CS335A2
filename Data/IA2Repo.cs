@@ -1,4 +1,4 @@
-﻿using A2Template.Models;
+using A2Template.Models;
 
 namespace A2Template.Data
 {
@@ -14,6 +14,5 @@ namespace A2Template.Data
         Event AddEvent(Event e);
         bool IsValidUser(string userName, string password);
         bool isValidStaff(string name, string password);
-        void SaveChanges();
     } 
 }

@@ -1,4 +1,4 @@
-﻿using A2Template.Models;
+using A2Template.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace A2Template.Data
@@ -73,11 +73,6 @@ namespace A2Template.Data
                 return false;
             else
                 return true;
-        }
-
-        public void SaveChanges()
-        {
-            _db.SaveChanges();
         }
     }
 }
