@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using A2Template.Data;
 using A2Template.Handler;
+using A2Template.Helper;
 
 public class Program
 {
@@ -18,7 +19,7 @@ public class Program
         builder.Services
             .AddAuthentication()
             .AddScheme<AuthenticationSchemeOptions, A2AuthHandler>("Authentication", null);
-            
+        builder.Services.AddMvc(options => options.OutputFormatters.Add(new CalendarOutputFormatter()));    
         builder.Services.AddDbContext<A2DbContext>(
             options => options.UseSqlite(builder.Configuration["P1DBConnection"]));
         builder.Services.AddScoped<IA2Repo, A2Repo>();
